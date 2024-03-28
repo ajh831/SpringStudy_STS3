@@ -1,7 +1,5 @@
 package com.loginform.myapp;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -22,18 +20,19 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+	public String index(Locale locale, Model model) {
+		System.out.println("home : index.jsp");
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
+		return "index";
 	}
+
 	
+	@RequestMapping(value = "/loginForm", method = RequestMethod.GET)
+	public String loginForm(Locale locale, Model model) {
+		System.out.println("loginF   orm.jsp");
+		
+		return "loginForm";
+	}
 }
