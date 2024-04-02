@@ -46,4 +46,5 @@ public class YoilTeller2 {
 		out.print("<p>" + year + "년 " + month + "월 " + day + "일은 </p>");
 		out.print("<p>" + yoil + "요일 입니다.</p>");
 	}
+	
 }

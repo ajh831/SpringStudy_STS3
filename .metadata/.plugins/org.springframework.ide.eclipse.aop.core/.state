@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aop-reference-model>
 <aop-project name="ch3"/>
+<aop-project name="ch2"/>
 <aop-project name="LoginForm"/>
+<aop-project name="LoginForm2"/>
 </aop-reference-model>
