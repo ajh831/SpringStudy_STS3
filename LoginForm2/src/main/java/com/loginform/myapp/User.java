@@ -1,6 +1,6 @@
 package com.loginform.myapp;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 
 public class User {
@@ -15,7 +15,6 @@ public class User {
 	}
 
 	public User(String id, String pwd, String name, Date birth, String address, Date reg_date) {
-		super();
 		this.id = id;
 		this.pwd = pwd;
 		this.name = name;
