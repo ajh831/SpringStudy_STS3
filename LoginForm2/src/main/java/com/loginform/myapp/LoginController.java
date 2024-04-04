@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -32,7 +33,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/loginCheck")
 	public String login(String id, String pwd, String checkBox, String toURL, HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+			HttpServletResponse response, Model model) throws ServletException, IOException {
 
 		System.out.println("LoginController toURL 확인중 : " + toURL);
 		System.out.println("LoginController checkBox 여부 확인중 : " + checkBox);
@@ -43,8 +44,10 @@ public class LoginController {
 
 		boolean login = false;
 
-		request.setAttribute("id", id); // userInfo에서 사용자 정보 확인하기 위함
-		request.setAttribute("pwd", pwd); // userInfo에서 사용자 정보 확인하기 위함
+//		request.setAttribute("id", id); // userInfo에서 사용자 정보 확인하기 위함
+//		request.setAttribute("pwd", pwd); // userInfo에서 사용자 정보 확인하기 위함
+		model.addAttribute("id", id); // userInfo에서 사용자 정보 확인하기 위함
+		model.addAttribute("pwd", pwd); // userInfo에서 사용자 정보 확인하기 위함
 
 		System.out.println("LoginCon id : " + id);
 		if (id != null && pwd != null && id.equals("asdf") && pwd.equals("1234")) {
@@ -56,8 +59,8 @@ public class LoginController {
 			HttpSession session = request.getSession();
 			session.setAttribute("id", id);
 
-			request.setAttribute("id", id);
-			request.setAttribute("pwd", pwd);
+			model.addAttribute("id", id);
+			model.addAttribute("pwd", pwd);
 
 			cookieCheck(login, response, checkBox, id);
 
@@ -101,7 +104,7 @@ public class LoginController {
 			return "redirect:/login?toURL=board";
 		}
 		
-		return "/login/board";
+		return "/login/board";  
 	}
 
 	@RequestMapping(value = "/qna")

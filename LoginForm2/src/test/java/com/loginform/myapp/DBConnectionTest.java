@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.sql.DataSource;
@@ -14,6 +15,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.loginform.dao.UserDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/**/root-context.xml" })
@@ -44,6 +47,18 @@ public class DBConnectionTest {
 		assertTrue(user2.getId().equals("asdf"));
 	}
 	
+
+	@Test
+	public void selectUserTest() throws Exception {
+		deleteAll();
+		User user = new User("asdf", "1234", "홍길동", new Date(), "서울특별시", new Date());
+		int rowCnt = insertUser(user);
+		System.out.println("rowCnt : " + rowCnt);
+		User user2 = selectUser("asdf");
+
+		assertTrue(user.getId().equals("asdf"));
+	}
+
 	@Test
 	public void selectIDTest() throws Exception {
 		User user2 = selectUser("asdf");
@@ -52,18 +67,7 @@ public class DBConnectionTest {
 		assertTrue(user2.getId().equals("asdf"));
 	}
 
-	@Test
-	public void selectUserTest() throws Exception {
-//		deleteAll();
-		User user = new User("asdf2", "1234", "홍길동", new Date(), "서울특별시", new Date());
-		int rowCnt = insertUser(user);
-		System.out.println("rowCnt : " + rowCnt);
-//		User user2 = selectUser("asdf2");
-
-//		assertTrue(user.getId().equals("asdf2"));
-	}
-
-//	"asdf", "1234", "홍길동", new Date(), "서울특별시", new Date()
+	//	"asdf", "1234", "홍길동", new Date(), "서울특별시", new Date()
 
 	private void deleteAll() throws Exception {
 		Connection conn = ds.getConnection();
@@ -77,7 +81,7 @@ public class DBConnectionTest {
 	public User selectAll() throws Exception {
 		Connection conn = ds.getConnection();
 
-		String sql = "select * from registerTB where id = 'asdf'";
+		String sql = "select * from registerTB";
 
 		PreparedStatement pstmt = conn.prepareStatement(sql); // SQL Injection공격, 성능향상
 		ResultSet rs = pstmt.executeQuery(); // select
@@ -128,9 +132,17 @@ public class DBConnectionTest {
 		pstmt.setString(1, user.getId());
 		pstmt.setString(2, user.getPwd());
 		pstmt.setString(3, user.getName());
-		pstmt.setString(4, "2014-01-01");
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String formattedDate = sdf.format(new java.sql.Date(user.getBirth().getTime()));
+		pstmt.setDate(4, java.sql.Date.valueOf(formattedDate));
+//		pstmt.setString(4, "2014-01-01");
+		
 		pstmt.setString(5, user.getAddress());
-		pstmt.setString(6,"2014-01-01");
+		
+		formattedDate = sdf.format(new java.sql.Date(user.getReg_date().getTime()));
+		pstmt.setDate(6, java.sql.Date.valueOf(formattedDate));
+//		pstmt.setString(6,"2014-01-01");
 
 		int rowCnt = pstmt.executeUpdate(); // insert, delete, update;
         return rowCnt;

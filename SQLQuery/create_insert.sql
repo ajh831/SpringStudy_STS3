@@ -39,13 +39,26 @@ CREATE TABLE registerTB (
   id VARCHAR(8),
   pwd VARCHAR(12) NOT NULL,
   name VARCHAR(10) NOT NULL,
-  birth DATE,
+  birth DATE NOT NULL,
   address VARCHAR(255),
   reg_date Date,
   CONSTRAINT testTable_PK PRIMARY KEY (id)
 );
 
 select * from registerTB;
+
+CREATE TABLE tb (
+	bno INT(11)
+);
+
+select * from tb;
+
+insert into tb values (1),(2),(3);
+
+select * from tb
+where 1=1
+&& bno >= 2
+&& bno <= 3;
 
 -- board : bno, title, content, writer, view_cnt, comment_cnt, reg_date, up_date
 -- insert select

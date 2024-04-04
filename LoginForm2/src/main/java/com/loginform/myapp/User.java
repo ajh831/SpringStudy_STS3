@@ -14,6 +14,14 @@ public class User {
 	public User() {
 	}
 
+	public User(String id, String pwd, String name, Date birth) {
+		this.id = id;
+		this.pwd = pwd;
+		this.name = name;
+		this.birth = birth;
+		this.reg_date = reg_date;
+	}
+
 	public User(String id, String pwd, String name, Date birth, String address, Date reg_date) {
 		this.id = id;
 		this.pwd = pwd;
