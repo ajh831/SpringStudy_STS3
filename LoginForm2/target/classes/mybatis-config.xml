@@ -4,6 +4,7 @@
 		"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="User" type="com.loginform.myapp.User"/>
+		<typeAlias alias="User" type="com.loginform.myapp.User" />
+		<typeAlias alias="Board" type="com.loginform.myapp.Board" />
 	</typeAliases>
 </configuration>

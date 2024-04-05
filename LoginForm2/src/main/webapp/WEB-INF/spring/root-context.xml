@@ -30,7 +30,7 @@
 		<property name="configLocation"
 			value="classpath:mybatis-config.xml" />
 		<property name="mapperLocations"
-			value="classpath:mapper/*Mapper.xml" />
+			value="classpath*:mapper/*Mapper.xml" />
 	</bean>
 
 	<bean id="sqlSession"

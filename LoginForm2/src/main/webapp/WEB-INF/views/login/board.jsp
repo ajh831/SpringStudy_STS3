@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,160 +8,203 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 /* Style the body */
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0;
 }
 
 /* Header/logo Title */
 .header {
-  padding: 40px;
-  text-align: center;
-  background: #1abc9c;
-  color: white;
+	padding: 40px;
+	text-align: center;
+	background: #1abc9c;
+	color: white;
 }
 
 /* Increase the font size of the heading */
 .header h1 {
-  font-size: 40px;
+	font-size: 40px;
 }
 
 /* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
 .navbar {
-  overflow: hidden;
-  background-color: #333;
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
+	overflow: hidden;
+	background-color: #333;
+	position: sticky;
+	position: -webkit-sticky;
+	top: 0;
 }
 
 /* Style the navigation bar links */
 .navbar a {
-  float: left;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 20px;
-  text-decoration: none;
+	float: left;
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 20px;
+	text-decoration: none;
 }
-
 
 /* Right-aligned link */
 .navbar a.right {
-  float: right;
+	float: right;
 }
 
 /* Change color on hover */
 .navbar a:hover {
-  background-color: #ddd;
-  color: black;
+	background-color: #ddd;
+	color: black;
 }
 
 /* Active/current link */
 .navbar a.active {
-  background-color: #666;
-  color: white;
+	background-color: #666;
+	color: white;
 }
 
 /* Column container */
-.row {  
-  display: -ms-flexbox; /* IE10 */
-  display: flex;
-  -ms-flex-wrap: wrap; /* IE10 */
-  flex-wrap: wrap;
+.row {
+	display: -ms-flexbox; /* IE10 */
+	display: flex;
+	-ms-flex-wrap: wrap; /* IE10 */
+	flex-wrap: wrap;
 }
 
 /* Create two unequal columns that sits next to each other */
 /* Sidebar/left column */
 .side {
-  -ms-flex: 30%; /* IE10 */
-  flex: 30%;
-  background-color: #f1f1f1;
-  padding: 20px;
+	-ms-flex: 30%; /* IE10 */
+	flex: 30%;
+	background-color: #f1f1f1;
+	padding: 20px;
 }
 
 /* Main column */
-.main {   
-  -ms-flex: 70%; /* IE10 */
-  flex: 70%;
-  background-color: white;
-  padding: 20px;
+.main {
+	-ms-flex: 70%; /* IE10 */
+	flex: 70%;
+	background-color: white;
+	padding: 20px;
 }
 
 /* Fake image, just for this example */
 .fakeimg {
-  background-color: #aaa;
-  width: 100%;
-  padding: 20px;
+	background-color: #aaa;
+	width: 100%;
+	padding: 20px;
 }
 
 /* Footer */
 .footer {
-  padding: 20px;
-  text-align: center;
-  background: #ddd;
+	padding: 20px;
+	text-align: center;
+	background: #ddd;
+}
+
+.container {
+	text-align: center; /* 텍스트 가운데 정렬 */
+	margin: 0 auto; /* 수평 중앙 정렬 */
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+	border-top: 2px solid rgb(39, 39, 39);
+}
+
+tr:nth-child(even) {
+	background-color: #f0f0f070;
+}
+
+th, td {
+	width: 300px;
+	text-align: center;
+	padding: 10px 12px;
+	border-bottom: 1px solid #ddd;
+}
+
+td {
+	color: rgb(53, 53, 53);
+}
+
+.no {
+	width: 150px;
+}
+
+.title {
+	width: 50%;
+}
+
+td.title {
+	text-align: left;
+}
+
+td.writer {
+	text-align: left;
+}
+
+td.viewcnt {
+	text-align: right;
+}
+
+td.title:hover {
+	text-decoration: underline;
 }
 
 /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 700px) {
-  .row {   
-    flex-direction: column;
-  }
+	.row {
+		flex-direction: column;
+	}
 }
 
 /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
 @media screen and (max-width: 400px) {
-  .navbar a {
-    float: none;
-    width: 100%;
-  }
+	.navbar a {
+		float: none;
+		width: 100%;
+	}
 }
-
 </style>
 <title>Insert title here</title>
 </head>
 <body>
 
-<div class="header">
-  <h1>My Website</h1>
-  <p>A <b>responsive</b> website created by me.</p>
-</div>
+	<div class="header">
+		<h1>My Website</h1>
+		<p>
+			A <b>responsive</b> website created by me.
+		</p>
+	</div>
 
-<jsp:include page="../menue.jsp" flush="false" />
+	<jsp:include page="../menue.jsp" flush="false" />
 
-<div class="row">
-  <div class="container">
-  <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
-  <p>Hello. How are you today?</p>
-  <span class="time-right">11:00</span>
-</div><br>
+	<table>
+		<tr>
+			<th class="no">번호</th>
+			<th class="title">제목</th>
+			<th class="writer">이름</th>
+			<th class="regdate">등록일</th>
+			<th class="viewcnt">조회수</th>
+		</tr>
+		<c:forEach var="Board" items="${boardList}">
+			<tr>
+				<td>${Board.bno}</td>
+				<td>${Board.title}</td>
+				<td>${Board.writer}</td>
+				<td>${Board.reg_date}</td>
+				<td>${Board.view_cnt}</td>
+			</tr>
+		</c:forEach>
+	</table>
 
-<div class="container darker">
-  <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right" style="width:100%;">
-  <p>Hey! I'm fine. Thanks for asking!</p>`
-  <span class="time-left">11:01</span>
-</div><br>
-
-<div class="container">
-  <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
-  <p>Sweet! So, what do you wanna do today?</p>
-  <span class="time-right">11:02</span>
-</div><br>
-
-<div class="container darker">
-  <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right" style="width:100%;">
-  <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
-  <span class="time-left">11:05</span>
-</div><br>
-</div>
-
-<div class="footer">
-  <h2>Footer</h2>
-</div>
+	<div class="footer">
+		<h2>Footer</h2>
+	</div>
 
 </body>
 </html>
