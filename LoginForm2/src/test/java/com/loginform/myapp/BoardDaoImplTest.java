@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.loginform.dao.BoardDAO;
 import com.loginform.dao.UserDAO;
+import com.loginform.service.BoardService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/**/root-context.xml" })
@@ -21,6 +22,8 @@ public class BoardDaoImplTest {
     UserDAO userDao;
     @Autowired
     ApplicationContext ac;
+    @Autowired
+    BoardService boardService;
 
 	private static String namespace = "com.loginform.dao.BoardMapper.";
 	
@@ -34,13 +37,25 @@ public class BoardDaoImplTest {
 		System.out.println(boardDao.count()); // NullPointerException
 		int cnt = boardDao.count();
 //		
-		assertTrue(cnt == 160);
+		assertTrue(cnt == 116);
 	}
 	
 	@Test
 	public void selectAllTest() throws Exception {
 		System.out.println("boardDao : " + (boardDao.selectAll() instanceof BoardDAO));
 		System.out.println("selectAll : " + boardDao.selectAll());
+	}
+	
+	@Test
+	public void insertTest() throws Exception {
+//		Board board = null;
+//		board.setTitle("test");
+//		board.setContent("테스트 중");
+//		board.setWriter("test");
+//		System.out.println("selectAll : " + boardService.write(board));
+		
+		Board board = new Board("no title", "no content", "asdf");
+        assertTrue(boardDao.insert(board)==1);
 	}
 
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -182,29 +183,65 @@ td.title:hover {
 	</div>
 
 	<jsp:include page="../menue.jsp" flush="false" />
-
-	<table>
-		<tr>
-			<th class="no">번호</th>
-			<th class="title">제목</th>
-			<th class="writer">이름</th>
-			<th class="regdate">등록일</th>
-			<th class="viewcnt">조회수</th>
-		</tr>
-		<c:forEach var="Board" items="${boardList}">
+	<div class="board-container">
+		<div class="search-container">
+			<form action="<c:url value="/board/list"/>" class="search-form"  style="float: right;"
+				method="get">
+				<select class="search-option" name="option">
+					<option value="A"
+						${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>제목+내용</option>
+					<option value="T" ${ph.sc.option=='T' ? "selected" : ""}>제목만</option>
+					<option value="W" ${ph.sc.option=='W' ? "selected" : ""}>작성자</option>
+				</select> <input type="text" name="keyword" class="search-input" type="text"
+					value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요"> <input
+					type="submit" class="search-button" value="검색">
+			</form><br><br>
+			<button id="writeBtn" class="btn-write" style="float: right;"
+				onclick="location.href='<c:url value="/board/write"/>'">
+				<i class="fa fa-pencil"></i> 글쓰기
+			</button>
+		</div>
+		<table>
 			<tr>
-				<td>${Board.bno}</td>
-				<td>${Board.title}</td>
-				<td>${Board.writer}</td>
-				<td>${Board.reg_date}</td>
-				<td>${Board.view_cnt}</td>
+				<th class="no">번호</th>
+				<th class="title">제목</th>
+				<th class="writer">이름</th>
+				<th class="regdate">등록일</th>
+				<th class="viewcnt">조회수</th>
 			</tr>
-		</c:forEach>
-	</table>
+			<c:forEach var="Board" items="${boardList}">
+				<tr>
+					<td>${Board.bno}</td>
+					<td>${Board.title}</td>
+					<td>${Board.writer}</td>
+					<c:choose>
+						<c:when test="${Board.reg_date.time >= startOfToday}">
+							<td class="regdate"><fmt:formatDate
+									value="${Board.reg_date}" pattern="HH:mm" type="time" /></td>
+						</c:when>
+						<c:otherwise>
+							<td class="regdate"><fmt:formatDate
+									value="${Board.reg_date}" pattern="yyyy-MM-dd" type="date" /></td>
+						</c:otherwise>
+					</c:choose>
+					<td>${Board.view_cnt}</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
 
 	<div class="footer">
 		<h2>Footer</h2>
 	</div>
+	<script>
+		$("#writeBtn").on("click", function() {
+			let form = $("#form");
+			form.attr("action", "<c:url value='/board/write'/>");
+			form.attr("method", "post");
 
+			if (formCheck())
+				form.submit();
+		});
+	</script>
 </body>
 </html>

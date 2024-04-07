@@ -26,4 +26,8 @@ public class BoardDAOImpl implements BoardDAO {
 		 return session.selectList(namespace+"selectAll");
 	}
 
+	@Override
+	public int insert(Board board) throws Exception {
+		return session.insert(namespace+"insert", board);
+	}
 }

@@ -7,12 +7,17 @@
 		SELECT count(*)
 		FROM board
 	</select>
-	
+
 	<select id="selectAll" resultType="Board">
-        SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
-        FROM board
-        ORDER BY reg_date DESC, bno DESC
-    </select>
+		SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
+		FROM board
+		ORDER BY bno DESC
+	</select>
+
+	<select id="insert" resultType="Board">
+		INSERT INTO board(title, content, writer)
+		VALUES (#{title}, #{content}, #{writer})
+	</select>
 </mapper>
 
 <!-- <select id="count" parameterType="Board" resultType="int"> SELECT count(*) 
