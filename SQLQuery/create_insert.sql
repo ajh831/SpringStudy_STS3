@@ -74,3 +74,7 @@ show variables like 'c%';
 INSERT INTO REGISTERTB() VALUES('asdf', '1234', '홍길동', '1999-01-01', '서울특별시 강남구 테헤란로', now());
 
 INSERT INTO REGISTERTB() VALUES('test', '1234', '테스트', '1999-01-01', '경기도', now());
+
+SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
+        FROM board
+        ORDER BY reg_date DESC, bno DESC;
