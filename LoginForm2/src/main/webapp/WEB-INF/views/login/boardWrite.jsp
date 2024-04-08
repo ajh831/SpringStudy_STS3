@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -184,15 +186,63 @@ td.title:hover {
 
 	<jsp:include page="../menue.jsp" flush="false" />
 	<div class="board-container">
-		<form action="/board/insert" method="post">
- 			제목 : <input type="text" style="width:100%;" name="title" placeholder="제목을 입력하세요" value="${Board.title}"><br><br>
-    		내용 : <br><textarea rows="20" style="width:100%;" name="content" placeholder="내용을 입력하세요">${Board.content}</textarea><br>
-			<input type="submit" value="등록">
+		<form id="form" action="/board/insert" method="post">
+			<input type="hidden" value="${Board.bno}">
+ 			제목 : <input type="text" style="width:100%;" name="title" placeholder="제목을 입력하세요" value="${Board.title}" ${empty Board.bno ? '' : 'disabled'}><br><br>
+    		내용 : <br><textarea rows="20" style="width:100%;" name="content" placeholder="내용을 입력하세요" ${empty Board.bno ? '' : 'disabled'}>${Board.content}</textarea><br>
+			<c:if test="${mode ne 'new'}">
+		      <button type="button" id="writeBtn" class="btn btn-write" style="display: none"><i class="fa fa-pencil"></i> 등록</button>
+		    </c:if>
+		    <c:if test="${mode eq 'new'}">
+		      <button type="button" id="writeNewBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 글쓰기</button>
+		    </c:if>
+		    <c:if test="${(Board.writer eq loginId) && Board.bno ne null}">
+		      <button type="button" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i> 수정</button>
+		      <button type="button" id="removeBtn" class="btn btn-remove"><i class="fa fa-trash"></i> 삭제</button>
+		    </c:if>
 		</form>
 	</div>
 
 	<div class="footer">
 		<h2>Footer</h2>
 	</div>
+	
+	<script>
+		$("#writeNewBtn").on("click", function() {
+			let form = $("#form");
+			form.submit();
+			alert("글쓰기");
+		});
+
+		$("#writeBtn").on("click", function() {
+			let form = $("#form");
+			form.attr("action", "<c:url value='/board/update?bno=${Board.bno}'/>");
+			form.attr("method", "post");
+			alert("등록");
+			form.submit();
+		});
+		
+		$("#modifyBtn").on("click", function() {
+			let form = $("#form");
+			alert("수정");
+            // 제목과 내용 입력 필드를 활성화
+            $("input[name='title']").prop("disabled", false);
+            $("textarea[name='content']").prop("disabled", false);
+            
+            // 수정 버튼 숨김
+            $(this).hide();
+            
+            // 등록 버튼을 보여줌
+            $("#writeBtn").show();
+		});
+		
+		$("#removeBtn").on("click", function() {
+			let form = $("#form");
+			form.attr("action", "<c:url value='/board/remove?bno=${Board.bno}'/>");
+			form.attr("method", "post");
+			alert("삭제");
+			form.submit();
+		});
+	</script>
 </body>
 </html>

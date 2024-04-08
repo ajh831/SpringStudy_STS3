@@ -34,7 +34,6 @@ INDEX VERSION 1.131+C:\Users\Home\OneDrive\JungsuckCoding\SpringStudy_STS3\.meta
 3972057797.index
 3083893491.index
 1503438841.index
-1243830358.index
 2967090663.index
 1695280793.index
 2603409536.index

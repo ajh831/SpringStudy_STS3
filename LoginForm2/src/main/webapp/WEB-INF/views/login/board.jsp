@@ -187,14 +187,14 @@ td.title:hover {
 		<div class="search-container">
 			<form action="<c:url value="/board/list"/>" class="search-form"  style="float: right;"
 				method="get">
-				<select class="search-option" name="option">
+				<%-- <select class="search-option" name="option">
 					<option value="A"
 						${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>제목+내용</option>
 					<option value="T" ${ph.sc.option=='T' ? "selected" : ""}>제목만</option>
 					<option value="W" ${ph.sc.option=='W' ? "selected" : ""}>작성자</option>
 				</select> <input type="text" name="keyword" class="search-input" type="text"
 					value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요"> <input
-					type="submit" class="search-button" value="검색">
+					type="submit" class="search-button" value="검색"> --%>
 			</form><br><br>
 			<button id="writeBtn" class="btn-write" style="float: right;"
 				onclick="location.href='<c:url value="/board/write"/>'">
@@ -212,7 +212,8 @@ td.title:hover {
 			<c:forEach var="Board" items="${boardList}">
 				<tr>
 					<td>${Board.bno}</td>
-					<td>${Board.title}</td>
+					<%-- <td>${Board.title}</td> --%>
+					<td class="title"><a href="<c:url value='/board/read?bno=${Board.bno}'/>">${Board.title}</a></td>
 					<td>${Board.writer}</td>
 					<c:choose>
 						<c:when test="${Board.reg_date.time >= startOfToday}">
@@ -228,6 +229,8 @@ td.title:hover {
 				</tr>
 			</c:forEach>
 		</table>
+		<!-- 여기에 Paging한거 작성 -->
+		
 	</div>
 
 	<div class="footer">

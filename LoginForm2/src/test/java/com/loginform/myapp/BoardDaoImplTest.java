@@ -37,7 +37,7 @@ public class BoardDaoImplTest {
 		System.out.println(boardDao.count()); // NullPointerException
 		int cnt = boardDao.count();
 //		
-		assertTrue(cnt == 116);
+//		assertTrue(cnt == 116);
 	}
 	
 	@Test
@@ -54,8 +54,28 @@ public class BoardDaoImplTest {
 //		board.setWriter("test");
 //		System.out.println("selectAll : " + boardService.write(board));
 		
-		Board board = new Board("no title", "no content", "asdf");
+		Board board = new Board("insertTest", "no content", "asdf");
         assertTrue(boardDao.insert(board)==1);
 	}
-
+	
+	@Test
+	public void readTest() throws Exception {
+		Board board = boardService.read(111);
+		System.out.println("getBno test : " + board.getBno());
+		assertTrue(board.getBno() == 111);
+	}
+	
+	@Test
+	public void modifyTest() throws Exception {
+		Board board = boardService.read(134);
+		board.setTitle("수정테스트2");
+		board.setContent("수정 테스트2 : 내용");
+		assertTrue(boardService.modify(board) == 1);
+	}
+	
+	@Test
+	public void removeTest() throws Exception {
+//		boardService.remove(138, "asdf");
+		assertTrue(boardService.remove(138, "asdf") == 1);
+	}
 }

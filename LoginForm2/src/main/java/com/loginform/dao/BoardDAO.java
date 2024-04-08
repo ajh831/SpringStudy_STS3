@@ -15,4 +15,12 @@ public interface BoardDAO {
 	// 게시글 추가하기
 	int insert(Board board) throws Exception;
 	
+	// 게시글 선택하기
+	Board select(Integer bno) throws Exception;
+	
+	// 게시글 업데이트
+	int update(Board board) throws Exception;
+	
+	// 게시글 삭제하기
+	int delete(Integer bno, String writer) throws Exception;
 }

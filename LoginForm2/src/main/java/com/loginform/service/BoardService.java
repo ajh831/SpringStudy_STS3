@@ -22,6 +22,8 @@ public interface BoardService {
 	// 게시글 읽기
 	Board read(Integer bno) throws Exception;
 	
+	// 게시글 수정
+	int modify(Board board) throws Exception;
 	
 //	List<Board> getPage(Map map) throws Exception;
 //	int modify(Board board) throws Exception;

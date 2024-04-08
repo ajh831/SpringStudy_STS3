@@ -1,6 +1,5 @@
 INDEX VERSION 1.4+C:\Users\Home\OneDrive\JungsuckCoding\SpringStudy_STS3\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
 2124932689.index
-1666789326.index
 843294562.index
 392573993.index
 2415766096.index

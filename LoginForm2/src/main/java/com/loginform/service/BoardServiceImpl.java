@@ -18,7 +18,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int remove(Integer bno, String writer) throws Exception {
-		return 0;
+		return boardDao.delete(bno, writer);
 	}
 
     @Override
@@ -28,7 +28,12 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public Board read(Integer bno) throws Exception {
-		return null;
+		return boardDao.select(bno);
+	}
+
+	@Override
+	public int modify(Board board) throws Exception {
+		return boardDao.update(board);
 	}
 	
 }

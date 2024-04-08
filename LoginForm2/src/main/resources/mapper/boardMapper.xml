@@ -8,16 +8,43 @@
 		FROM board
 	</select>
 
-	<select id="selectAll" resultType="Board">
-		SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
+	<sql id="selectFromBoard">
+		SELECT bno, title, content,
+		writer, view_cnt, comment_cnt, reg_date
 		FROM board
+	</sql>
+
+	<select id="selectAll" resultType="Board">
+		<include refid="selectFromBoard"/>
 		ORDER BY bno DESC
 	</select>
 
-	<select id="insert" resultType="Board">
-		INSERT INTO board(title, content, writer)
+	<insert id="insert" parameterType="Board">
+		INSERT INTO board(title,
+		content, writer)
 		VALUES (#{title}, #{content}, #{writer})
+	</insert>
+
+	<select id="select" resultType="Board">
+		<include refid="selectFromBoard"/>
+		WHERE 1=1
+		AND bno = #{bno}
 	</select>
+	
+	<update id="update" parameterType="Board">
+		UPDATE board
+		SET title = #{title},
+		content = #{content},
+		up_date = now()
+		WHERE bno = #{bno}
+	</update>
+	
+	<delete id="delete" parameterType="map">
+		DELETE FROM board
+		WHERE 1=1
+		AND bno = #{bno}
+		AND writer = #{writer}
+	</delete>
 </mapper>
 
 <!-- <select id="count" parameterType="Board" resultType="int"> SELECT count(*) 
