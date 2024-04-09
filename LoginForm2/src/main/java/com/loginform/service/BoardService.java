@@ -24,7 +24,9 @@ public interface BoardService {
 	
 	// 게시글 수정
 	int modify(Board board) throws Exception;
-	
-//	List<Board> getPage(Map map) throws Exception;
+
+	// pageSize만큼 게시글 보여주기
+	List<Board> getPage(Map map) throws Exception;
+
 //	int modify(Board board) throws Exception;
 }

@@ -1,10 +1,12 @@
 package com.loginform.service;
 
+import com.loginform.dao.BoardDAO;
+import com.loginform.myapp.Board;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.loginform.dao.BoardDAO;
-import com.loginform.myapp.Board;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -35,5 +37,10 @@ public class BoardServiceImpl implements BoardService {
 	public int modify(Board board) throws Exception {
 		return boardDao.update(board);
 	}
-	
+
+	@Override
+	public List<Board> getPage(Map map) throws Exception {
+		return boardDao.selectList(map);
+	}
+
 }

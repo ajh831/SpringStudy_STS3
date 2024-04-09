@@ -1,8 +1,9 @@
 package com.loginform.dao;
 
-import java.util.List;
-
 import com.loginform.myapp.Board;
+
+import java.util.List;
+import java.util.Map;
 
 public interface BoardDAO {
 	
@@ -23,4 +24,7 @@ public interface BoardDAO {
 	
 	// 게시글 삭제하기
 	int delete(Integer bno, String writer) throws Exception;
+
+	// 게시글 pageSize만큼 보여주기
+	List<Board> selectList(Map map) throws Exception;
 }

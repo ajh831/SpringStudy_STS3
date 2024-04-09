@@ -30,6 +30,12 @@
 		WHERE 1=1
 		AND bno = #{bno}
 	</select>
+
+	<select id="selectPage" parameterType="map" resultType="Board">
+		<include refid="selectFromBoard"/>
+		ORDER BY reg_date DESC, bno DESC
+		LIMIT #{pageSize} OFFSET #{offset};
+	</select>
 	
 	<update id="update" parameterType="Board">
 		UPDATE board

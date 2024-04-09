@@ -23,6 +23,11 @@ public class PageHandler {
       this.totalCnt = totalCnt;
       this.page = page;
       this.pageSize = pageSize;
+
+      this.totalPage = (totalCnt / pageSize) + (((totalCnt % pageSize) > 0) ? 1 : 0); // 총 페이지 갯수
+      System.out.println("총 페이지 수 : " + this.totalPage);
+      this.beginPage = 1;
+      this.endPage = totalPage;
   }
   
   void print() {

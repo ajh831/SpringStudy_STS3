@@ -78,4 +78,12 @@ public class BoardDaoImplTest {
 //		boardService.remove(138, "asdf");
 		assertTrue(boardService.remove(138, "asdf") == 1);
 	}
+
+	@Test
+	public void pageHandlerTest() throws Exception {
+		PageHandler ph = new PageHandler(101, 1, 10);
+		System.out.println("ph EndPage : " + ph.getEndPage());
+		System.out.println(ph);
+//		System.out.println("test");
+	}
 }

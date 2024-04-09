@@ -1,13 +1,7 @@
 package com.loginform.myapp;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import com.loginform.dao.BoardDAO;
+import com.loginform.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.loginform.dao.BoardDAO;
-import com.loginform.service.BoardService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/board")
@@ -30,15 +30,28 @@ public class BoardController {
 	@RequestMapping(value = "/list")
 	public String boardList(@RequestParam(defaultValue ="1") Integer page,
             				@RequestParam(defaultValue = "10") Integer pageSize, Model model) throws Exception {
-		
-		List<Board> boardlist = boardDao.selectAll();
-		model.addAttribute("boardList", boardlist);
+
+		// 페이지 전체 개수대로 보여주기
+//		List<Board> boardlist = boardDao.selectAll();
+//		model.addAttribute("boardList", boardlist);
 
 		Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
 		model.addAttribute("startOfToday", startOfToday.toEpochMilli());
-		
+
+		// 페이징 처리를 하기위해서 전체페이지 개수를 구함
 		int totalCnt = boardService.getCount();
+		// PageHandler(전체페이지수, 현재페이지(default 1), pageSize(default 10))
 		PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
+
+		System.out.println("begin Page : " + pageHandler.getBeginPage());
+		System.out.println("end Page : " + pageHandler.getEndPage());
+		model.addAttribute("ph", pageHandler);
+
+		Map map = new HashMap();
+		map.put("offset", (pageHandler.getPage()-1) * pageHandler.getPageSize());
+		map.put("pageSize", pageHandler.getPageSize());
+
+		List<Board> boardlist = boardDao.selectList(map);
 		
 		return "/login/board";
 	}

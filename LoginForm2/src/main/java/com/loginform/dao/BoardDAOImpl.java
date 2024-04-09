@@ -50,4 +50,9 @@ public class BoardDAOImpl implements BoardDAO {
 		map.put("writer", writer);
 		return session.delete(namespace + "delete", map);
 	}
+
+	@Override
+	public List<Board> selectList(Map map) throws Exception {
+		return session.selectList(namespace + "selectPage", map);
+	}
 }
