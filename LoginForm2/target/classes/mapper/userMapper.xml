@@ -17,4 +17,14 @@
 		WHERE id = #{id}
 	</select>
 
+	<select id="selectUserCount" parameterType="string" resultType="Integer">
+		select count(*) from registerTB
+		WHERE id = #{id}
+	</select>
+
+	<insert id="insert" parameterType="User">
+		insert into registerTB (id, pwd, name, birth, address, reg_date)
+		values (#{id}, #{pwd}, #{name}, #{birth}, #{address}, now())
+	</insert>
+
 </mapper>

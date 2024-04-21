@@ -30,6 +30,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public Board read(Integer bno) throws Exception {
+		boardDao.increaseViewCnt(bno);
+
 		return boardDao.select(bno);
 	}
 
@@ -40,6 +42,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<Board> getPage(Map map) throws Exception {
+		System.out.println("Service map startPage : " + map.get("startPage"));
+		System.out.println("Service map endPage : " + map.get("endPage"));
 		return boardDao.selectList(map);
 	}
 

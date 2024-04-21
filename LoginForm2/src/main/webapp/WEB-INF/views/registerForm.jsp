@@ -86,14 +86,24 @@ span.psw {
 </style>
 </head>
 <body>
-	<form:form modelAttribute="user" action="/registerInfo" method="get">
+	<form:form modelAttribute="user" action="/register" method="post">
 		<div class="container">
 			<div style="text-align: center; font-size: 40px">회원가입</div>
 			<label for="uid"><b>id : </b></label><input type="text" name="id"><br>
+				<%-- 에러 메시지 표시 --%>
+			<c:if test="${not empty errorMessage}">
+				<p style="color: red;">${errorMessage}</p>
+			</c:if>
 			<label for="psw"><b>pwd : </b></label><input type="password" name="pwd" placeholder="영문자,숫자, 특수문자를 조합하여 8자 이상"><br>
 			<label for="uname"><b>이름 : </b></label><input type="text" name="uName"><br>
 			<label for="birth"><b>생년월일 : </b></label><input type="date" name="birth"><br>
+			<c:if test="${not empty errorMessageBirth}">
+				<p style="color: red;">${errorMessageBirth}</p>
+			</c:if>
 			<label for="uaddress"><b>주소 : </b></label><input type="text" name="address"><br>
+			<c:if test="${not empty errorMessageALL}">
+				<p style="color: red;">${errorMessageALL}</p>
+			</c:if>
 		</div>
 		<div class="container" style="background-color: #f1f1f1">
 			<!--<input type="submit" value="로그인">-->

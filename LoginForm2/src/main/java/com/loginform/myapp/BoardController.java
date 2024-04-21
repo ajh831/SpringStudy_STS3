@@ -28,8 +28,8 @@ public class BoardController {
     BoardService boardService;
 
 	@RequestMapping(value = "/list")
-	public String boardList(@RequestParam(defaultValue ="1") Integer page,
-            				@RequestParam(defaultValue = "10") Integer pageSize, Model model) throws Exception {
+	public String boardList(@RequestParam(defaultValue ="1") int page,
+            				@RequestParam(defaultValue = "10") int pageSize, Model model, HttpServletRequest request) throws Exception {
 
 		// 페이지 전체 개수대로 보여주기
 //		List<Board> boardlist = boardDao.selectAll();
@@ -41,18 +41,43 @@ public class BoardController {
 		// 페이징 처리를 하기위해서 전체페이지 개수를 구함
 		int totalCnt = boardService.getCount();
 		// PageHandler(전체페이지수, 현재페이지(default 1), pageSize(default 10))
+		System.out.println("page input 확인: " + page);
 		PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
 
-		System.out.println("begin Page : " + pageHandler.getBeginPage());
+		System.out.println("start Page : " + pageHandler.getStartPage());
 		System.out.println("end Page : " + pageHandler.getEndPage());
 		model.addAttribute("ph", pageHandler);
 
-		Map map = new HashMap();
-		map.put("offset", (pageHandler.getPage()-1) * pageHandler.getPageSize());
-		map.put("pageSize", pageHandler.getPageSize());
+		System.out.println("프린트문 확인2");
 
-		List<Board> boardlist = boardDao.selectList(map);
-		
+		Map map = new HashMap();
+		map.put("offset", (page-1)*10);
+//		map.put("startPage", pageHandler.getStartPage()-1);
+//		map.put("endPage", pageHandler.getEndPage());
+		map.put("pageSize", pageSize);
+
+//		map.put("startPage", 1);
+//		map.put("endPage", 10);
+		System.out.println("프린트문 확인1");
+
+		System.out.println("startPage check: " + map.get("startPage"));
+		System.out.println("endPage check: " + map.get("endPage"));
+//		map.put("getEndPage", pageHandler.getEndPage());
+
+		List<Board> boardlist = boardService.getPage(map);
+		System.out.println("boardList print : " + boardlist);
+//		Iterator it = boardlist.iterator();
+//		// while문을 사용한 경우
+//		while(it.hasNext())
+//		{
+//			System.out.println("iterator test");
+//			String str = it.next().toString();
+//			System.out.println(str);
+//		}
+
+		model.addAttribute("boardList", boardlist);
+		model.addAttribute("ph", pageHandler);
+
 		return "/login/board";
 	}
 
@@ -88,6 +113,7 @@ public class BoardController {
 	@RequestMapping("/read")
 	public String read(Integer bno, Model model, HttpSession session) throws Exception {
 		Board board = boardService.read(bno);
+		System.out.println("read에서 view_cnt 확인중 : " + board.getView_cnt());
 		System.out.println("read에서 bno 확인중 : " + board.getBno());
 		model.addAttribute("Board", board);
 		model.addAttribute("loginId", session.getAttribute("id"));

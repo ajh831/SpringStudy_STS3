@@ -18,6 +18,8 @@ public interface BoardDAO {
 	
 	// 게시글 선택하기
 	Board select(Integer bno) throws Exception;
+
+	int increaseViewCnt(Integer bno) throws Exception;
 	
 	// 게시글 업데이트
 	int update(Board board) throws Exception;

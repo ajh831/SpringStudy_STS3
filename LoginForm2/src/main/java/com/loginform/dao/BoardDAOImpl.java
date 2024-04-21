@@ -1,14 +1,13 @@
 package com.loginform.dao;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.loginform.myapp.Board;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.loginform.myapp.Board;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -31,6 +30,11 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int insert(Board board) throws Exception {
 		return session.insert(namespace+"insert", board);
+	}
+
+	@Override
+	public int increaseViewCnt(Integer bno) throws Exception {
+		return session.update(namespace+"increaseViewCnt", bno);
 	}
 
 	@Override

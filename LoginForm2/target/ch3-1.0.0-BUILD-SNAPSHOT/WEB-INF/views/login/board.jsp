@@ -229,10 +229,31 @@ td.title:hover {
 				</tr>
 			</c:forEach>
 		</table>
-		<!-- 여기에 Paging한거 작성 -->
-		<c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
+		<br>
+		<div style="text-align: center">
+			<a href="<c:url value="/board/list?page=1"/>"> << </a>
+			<c:choose>
+				<c:when test="${(ph.page-1) < 1}">
+					<a href="<c:url value="/board/list?page=${ph.totalPage}"/>"> < </a>
+				</c:when>
+				<c:otherwise>
+					<a href="<c:url value="/board/list?page=${ph.page - 1}"/>"> < </a>
+				</c:otherwise>
+			</c:choose>
+			<c:forEach var="i" begin="${ph.startPage}" end="${ph.endPage}">
 			<a class="page ${i==ph.page? "paging-active" : ""}" href="<c:url value="/board/list?page=${i}"/>">${i}</a>
 		</c:forEach>
+			<c:choose>
+				<c:when test="${(ph.page+1) > ph.totalPage}">
+					<a href="<c:url value="/board/list?page=1"/>"> > </a>
+				</c:when>
+				<c:otherwise>
+					<a href="<c:url value="/board/list?page=${ph.page+1}"/>"> > </a>
+				</c:otherwise>
+			</c:choose>
+		<a href="<c:url value="/board/list?page=${ph.totalPage}"/>"> >> </a>
+		</div>
+		<br>
 	</div>
 
 	<div class="footer">

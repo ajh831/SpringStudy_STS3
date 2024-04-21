@@ -1,7 +1,8 @@
 package com.loginform.myapp;
 
-import static org.junit.Assert.assertTrue;
-
+import com.loginform.dao.BoardDAO;
+import com.loginform.dao.UserDAO;
+import com.loginform.service.BoardService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.loginform.dao.BoardDAO;
-import com.loginform.dao.UserDAO;
-import com.loginform.service.BoardService;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/**/root-context.xml" })
@@ -81,8 +80,8 @@ public class BoardDaoImplTest {
 
 	@Test
 	public void pageHandlerTest() throws Exception {
-		PageHandler ph = new PageHandler(101, 1, 10);
-		System.out.println("ph EndPage : " + ph.getEndPage());
+		PageHandler2 ph = new PageHandler2(152, 11, 10);
+		System.out.println("ph EndPage : " + ph);
 		System.out.println(ph);
 //		System.out.println("test");
 	}

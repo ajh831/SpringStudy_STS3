@@ -1,17 +1,12 @@
 package com.loginform.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Date;
-
-import javax.sql.DataSource;
-
+import com.loginform.myapp.User;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.loginform.myapp.User;
+import javax.sql.DataSource;
+import java.sql.Connection;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -41,6 +36,17 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public int insertUser(User user) throws Exception {
 		return session.insert(namespace + "insert", user);
+	}
+
+	@Override
+	public int selectUserId(String id) throws Exception {
+		Integer cnt = session.selectOne(namespace + "selectUserCount", id);
+		System.out.println("cnt 확인중 여기는 유저다오 : " + cnt);
+
+		cnt = cnt != null ? cnt : 0;
+		System.out.println("cnt 확인중 여기는 유저다오 : " + cnt);
+
+		return cnt;
 	}
 
 	@Override

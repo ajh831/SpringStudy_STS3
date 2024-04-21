@@ -32,10 +32,18 @@
 	</select>
 
 	<select id="selectPage" parameterType="map" resultType="Board">
-		<include refid="selectFromBoard"/>
-		ORDER BY reg_date DESC, bno DESC
-		LIMIT #{pageSize} OFFSET #{offset};
+		select bno, title, content, writer, view_cnt, comment_cnt, reg_date, up_date
+		from board
+		where 1=1
+		order by bno desc
+		limit #{offset}, #{pageSize}
 	</select>
+
+	<update id="increaseViewCnt" parameterType="int">
+		UPDATE board
+		SET   view_cnt = view_cnt + 1
+		WHERE bno = #{bno}
+	</update>
 	
 	<update id="update" parameterType="Board">
 		UPDATE board
@@ -55,3 +63,12 @@
 
 <!-- <select id="count" parameterType="Board" resultType="int"> SELECT count(*) 
 	FROM board </select> -->
+
+<!--
+ 		select a.* from (
+ 							select row_number() over(order by bno desc) as bno, title, content, writer, view_cnt, comment_cnt, reg_date, up_date
+ 							from board
+ 						) as a
+ 		where 1=1
+ 		  and a.bno between #{startPage} and #{endPage}
+-->
